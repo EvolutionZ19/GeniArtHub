@@ -55,7 +55,7 @@ boutonAcheter.addEventListener("click", (e) => {
     const quantite = parseInt(quantiteInput.value);
     const format = document.querySelector('#format').value;
 
-    if (quantite > 0) {
+    if (quantite >= 1) {
         const produit = {
             id: datas._id,
             titre: datas.titre,
@@ -64,7 +64,7 @@ boutonAcheter.addEventListener("click", (e) => {
             format: format
         };
         if (quantite > 100) {
-            alert("100 exemplaires max.");
+            alert("100 exemplaires max !");
         } else {
             ajouterAuPanier(produit, quantite, format);
         }
@@ -103,9 +103,19 @@ function ajouterAuPanier(produit, quantite, format) {
     const produitExistant = panier.find(item => item.id === produit.id && item.format === format);
 
     if (produitExistant) {
-        produitExistant.quantite += parseInt(quantite); 
+        if (produitExistant.quantite + parseInt(quantite) > 100) {
+            alert("100 exemplaire max.");
+        } else {
+            produitExistant.quantite += parseInt(quantite); 
+        }
     } else {
-        panier.push({ id: produit.id, quantite: parseInt(quantite), format });
+        if (parseInt(quantite) > 100) {
+            alert("Limitation d'achat 100 par produits")
+        }
+ 
+         else {
+            panier.push({ id: produit.id, quantite: parseInt(quantite), format });
+        }
     }
 
     localStorage.setItem("panier", JSON.stringify(panier));
