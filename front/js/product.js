@@ -51,56 +51,61 @@ const boutonAcheter = document.querySelector(".button-buy");
 
 boutonAcheter.addEventListener("click", (e) => {
     e.preventDefault();
-console.log(datas)
-const quantite = document.querySelector("input").value
-const format = document.querySelector('#format').value;
-const produit = {
-    id: datas._id,
-    titre: datas.titre,
-    image: datas.image,
-    quantite:quantite,
-    format: format
-};
-    ajouterAuPanier(produit, quantite, format);
+    const quantiteInput = document.querySelector("input");
+    const quantite = parseInt(quantiteInput.value);
+    const format = document.querySelector('#format').value;
 
-    let panier = localStorage.getItem("panier");
-    if (panier === null) {
-        panier = [];
+    if (quantite > 0) {
+        const produit = {
+            id: datas._id,
+            titre: datas.titre,
+            image: datas.image,
+            quantite: quantite,
+            format: format
+        };
+        if (quantite > 100) {
+            alert("100 exemplaires max.");
+        } else {
+            ajouterAuPanier(produit, quantite, format);
+        }
     } else {
-        panier = JSON.parse(panier);
+       alert("la quantité ne peut être en négatif !!")
     }
-    
-    // panier.push(datas);
-    
-    localStorage.setItem("panier", JSON.stringify(panier));
-    
-    document.querySelector(".modal").style.display = "flex";
-    document.querySelector(".modal").innerHTML = `
+});
+
+let panier = localStorage.getItem("panier");
+if (panier === null) {
+    panier = [];
+} else {
+    panier = JSON.parse(panier);
+}
+
+localStorage.setItem("panier", JSON.stringify(panier));
+
+document.querySelector(".modal").style.display = "flex";
+document.querySelector(".modal").innerHTML = `
     <div class="modal-content">
         <p>Produit ajouté au panier !</p>
         <a href="cart.html">Voir le panier</a>
         <button class="close-modal">Fermer</button>
     </div>
-    `;
-    
-    const modal = document.querySelector(".close-modal");
-    modal.addEventListener("click", () => {
-        document.querySelector(".modal").style.display = "none";
-    });
+`;
+
+const modal = document.querySelector(".close-modal");
+modal.addEventListener("click", () => {
+    document.querySelector(".modal").style.display = "none";
 });
 
-
 function ajouterAuPanier(produit, quantite, format) {
-
     let panier = localStorage.getItem("panier");
     panier = panier ? JSON.parse(panier) : [];
 
     const produitExistant = panier.find(item => item.id === produit.id && item.format === format);
 
     if (produitExistant) {
-        produitExistant.quantite += parseInt(quantite);
+        produitExistant.quantite += parseInt(quantite); 
     } else {
-        panier.push({ id: produit.id, quantite: parseInt(quantite), format: format, produit });
+        panier.push({ id: produit.id, quantite: parseInt(quantite), format });
     }
 
     localStorage.setItem("panier", JSON.stringify(panier));
