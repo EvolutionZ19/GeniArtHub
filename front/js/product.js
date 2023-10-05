@@ -18,21 +18,21 @@ async function constID() {
 
     const select = document.querySelector("select");
     data.declinaisons.forEach((el, index) => {
-        select.innerHTML += `<option data-id="${index}" value="${el.taille}">Format : ${el.taille}</option>`
+        select.innerHTML += `<option data-id="${index}" value="${el.taille}">Format : ${el.taille}</option>`;
     });
 
-    document.querySelector('.showprice').innerHTML = `${data.declinaisons[0].prix}€`
+    document.querySelector('.showprice').innerHTML = `${data.declinaisons[0].prix}€`;
 
     return data;
 }
 
 function populate(datas) {
-    const select = document.querySelector("select")
+    const select = document.querySelector("select");
     select.addEventListener('change', () => {
-        const format = document.querySelector('#format')
-        const id = format.options[format.selectedIndex].dataset.id
-        document.querySelector('.showprice').innerHTML = datas.declinaisons[id].prix + ' €'
-    })
+        const format = document.querySelector('#format');
+        const id = format.options[format.selectedIndex].dataset.id;
+        document.querySelector('.showprice').innerHTML = datas.declinaisons[id].prix + ' €';
+    });
 }
 
 function details(data) {
@@ -56,6 +56,7 @@ boutonAcheter.addEventListener("click", (e) => {
     const format = document.querySelector('#format').value;
 
     if (quantite >= 1) {
+
         const produit = {
             id: datas._id,
             titre: datas.titre,
@@ -64,12 +65,12 @@ boutonAcheter.addEventListener("click", (e) => {
             format: format
         };
         if (quantite > 100) {
-            alert("100 exemplaires max !");
+            showModal("100 exemplaires max !");
         } else {
             ajouterAuPanier(produit, quantite, format);
         }
     } else {
-       alert("la quantité ne peut être en négatif !!")
+       showModal("la quantité ne peut être en négatif !!");
     }
 });
 
@@ -81,19 +82,20 @@ if (panier === null) {
 }
 
 localStorage.setItem("panier", JSON.stringify(panier));
+numberItem();
 
 document.querySelector(".modal").style.display = "flex";
 document.querySelector(".modal").innerHTML = `
-    <div class="modal-content">
+    <div class="modal-contenue">
         <p>Produit ajouté au panier !</p>
         <a href="cart.html">Voir le panier</a>
-        <button class="close-modal">Fermer</button>
+        <button class="bouton-modal">Fermer</button>
     </div>
 `;
 
-const modal = document.querySelector(".close-modal");
+const modal = document.querySelector(".bouton-modal");
 modal.addEventListener("click", () => {
-    document.querySelector(".modal").style.display = "none";
+    modal.style.display = "none";
 });
 
 function ajouterAuPanier(produit, quantite, format) {
@@ -104,19 +106,33 @@ function ajouterAuPanier(produit, quantite, format) {
 
     if (produitExistant) {
         if (produitExistant.quantite + parseInt(quantite) > 100) {
-            alert("100 exemplaire max.");
+            showModal("100 exemplaire max.");
         } else {
             produitExistant.quantite += parseInt(quantite); 
         }
     } else {
         if (parseInt(quantite) > 100) {
-            alert("Limitation d'achat 100 par produits")
+            showModal("Limitation d'achat 100 par produits");
         }
  
          else {
             panier.push({ id: produit.id, quantite: parseInt(quantite), format });
+            showModal("produit ajouté au panier")
         }
     }
 
     localStorage.setItem("panier", JSON.stringify(panier));
+    numberItem();
+}
+
+function showModal(message){
+
+    const modal = document.createElement('dialog')
+    modal.textContent = message
+    document.body.appendChild(modal)
+    modal.showModal()
+    setTimeout(() =>{
+        modal.close()
+        modal.remove()
+    },3000)
 }
