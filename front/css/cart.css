@@ -91,50 +91,6 @@ footer {
 }
 
 
-/* Style du formulaire élégant avec CSS Grid */
-#formulaire {
-    margin-top: 30px;
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Deux colonnes égales */
-    gap: 20px;
-}
-
-#formulaire h2 {
-    font-size: 24px;
-    grid-column: span 2;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-/* Style des champs */
-label {
-    font-weight: bold;
-}
-
-input[type="text"],
-input[type="email"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-/* Style du bouton "Passez commande" */
-#formulaire input[type="submit"] {
-    background-color: #333;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    grid-column: span 2;
-}
-
-#formulaire input[type="submit"]:hover {
-    background-color: #555;
-}
-
-
 /* Styles pour la modal */
 .modal {
     display: none; /* Masquer la modal par défaut */
@@ -231,3 +187,63 @@ input[type="email"] {
 body.modal-open {
     overflow: hidden;
 }
+
+
+
+/* Styles pour la section du formulaire */
+#formulaire {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+  
+  #formulaire h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Utilisation de CSS Grid pour organiser les champs */
+  form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+  
+  /* Styles pour les étiquettes (labels) */
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+  }
+  
+  /* Styles pour les champs de saisie (input) */
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  /* Style pour le bouton de soumission */
+  #commande {
+    grid-column: span 2; /* Occupera deux colonnes */
+    background-color:orange;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 20px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  
+  /* Style pour la disposition des éléments */
+  div {
+    margin-bottom: 15px;
+  }
+  
