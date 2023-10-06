@@ -38,7 +38,7 @@
 
     <section id="formulaire">
         <h2>Formulaire de commande</h2>
-        <form action="cart.html" method="post">
+        <form action="#" method="post">
             <div>
                 <label for="prenom">Prénom</label>
                 <input type="text" name="prenom" id="prenom" required>
@@ -68,6 +68,16 @@
     <footer>
         <p>Errante Creation © 2023 - GeniArtHub</p>
     </footer>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <!-- Contenu de la modal -->
+            <span id="close-modal" class="close">&times;</span>
+            <h2>Félicitations</h2>
+            <p>La commande a été passée avec succès - Voici votre numéro de commande : <span id="numero-commande"></span></p>
+            <button id="fermer-modal">Fermer</button>
+        </div>
+    </div>
 
     <script src="js/cart.js"></script>
     <script src="Js/numberitem.js"></script>
