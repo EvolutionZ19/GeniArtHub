@@ -195,3 +195,47 @@ async function afficherPanier() {
 document.addEventListener('DOMContentLoaded', () => {
     afficherPanier();
 });
+
+/* La modal confirmation de commande
+La modal de confirmation de commande doit afficher le numéro de commande récupéré
+depuis le back lors de la validation d’une commande.
+Si le numéro de commande a bien été récupéré, les données dans les champs de formulaire
+de commande doivent être réinitialisées.
+Les données du panier doivent également être vidées. */
+
+
+
+
+
+
+// si le panier est vide afficher un message "votre panier est vide, Veuillez ajouter des articles à votre panier"
+
+function afficherPanierVide() {
+    const panierVide = document.querySelector(".panier");
+    if (panierVide) {
+        panierVide.innerHTML = `
+            <div class="panier">
+                <p>Votre panier est vide</p>
+            </div>
+        `;
+    }
+}
+
+afficherPanierVide();
+
+// si le panier n'est pas vide afficher les articles du panier
+
+function afficherPanierPlein() {
+    const panierPlein = document.querySelector(".panier");
+    if (panierPlein) {
+        panierPlein.innerHTML = "";
+    }
+}
+
+afficherPanierPlein();
+
+
+
+
+
+
